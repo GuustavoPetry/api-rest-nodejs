@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx --watch src/server.ts",
     "knex": "tsx ./node_modules/knex/bin/cli.js",
-    "lint": "eslint src --ext .ts --fix && prettier --write \"src/**/*.ts\""
+    "lint": "eslint src --ext .ts --fix && prettier --write \"src/**/*.ts\"",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -14,12 +15,15 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/node": "^24.10.2",
+    "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.49.0",
     "@typescript-eslint/parser": "^8.49.0",
     "eslint": "^8.57.1",
     "prettier": "^3.7.4",
+    "supertest": "^7.1.4",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
