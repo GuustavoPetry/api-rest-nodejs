@@ -1,5 +1,5 @@
-import { it, beforeAll, afterAll, describe } from "vitest";
-import request from "supertest";
+import { it, beforeAll, afterAll, beforeEach, describe } from "vitest";
+import supertest from "supertest";
 import { app } from "../src/app";
 
 describe("Transactions Routes", () => {
@@ -11,9 +11,8 @@ describe("Transactions Routes", () => {
         await app.close();
     });
 
-    // Roda apenas este teste na execução
-    it.only("should be able to create a new transaction", async () => {
-        const response = await request(app.server)
+    it("should be able to create a new transaction", async () => {
+        await supertest(app.server)
             .post("/transactions")
             .send({
                 title: "New Transaction",
@@ -21,16 +20,24 @@ describe("Transactions Routes", () => {
                 type: "credit"
             })
             .expect(201);
-
-        console.log(response.headers);
     });
 
-    // Pula esse teste na execução
-    it.skip("should be able to list all transactions", async () => {
+    it.only("should be able to list all transactions", async () => {
+        const createTransactionResponse = await supertest(app.server)
+            .post("/transactions")
+            .send({
+                title: "New Transaction",
+                amount: 5000,
+                type: "credit"
+            });
 
+        const cookies = createTransactionResponse.get("Set-Cookie");
+
+        await supertest(app.server)
+            .get("/transactions")
+            .set("Cookie", cookies)
+            .expect(200);
     });
 
-    // Marca teste como -> a fazer
-    it.todo("Any test", async () => {});
 });
 
