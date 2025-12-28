@@ -23,7 +23,9 @@ describe("Transactions Routes", () => {
     });
 
     it.only("should be able to list all transactions", async () => {
-        const createTransactionResponse = await supertest(app.server)
+        const agent = supertest.agent(app.server);
+
+        await agent
             .post("/transactions")
             .send({
                 title: "New Transaction",
@@ -31,11 +33,8 @@ describe("Transactions Routes", () => {
                 type: "credit"
             });
 
-        const cookies = createTransactionResponse.get("Set-Cookie");
-
-        await supertest(app.server)
+        await agent
             .get("/transactions")
-            .set("Cookie", cookies)
             .expect(200);
     });
 
