@@ -1,4 +1,4 @@
-import { it, beforeAll, afterAll, beforeEach, describe } from "vitest";
+import { it, beforeAll, afterAll, beforeEach, describe, expect } from "vitest";
 import supertest from "supertest";
 import { app } from "../src/app";
 
@@ -22,7 +22,7 @@ describe("Transactions Routes", () => {
             .expect(201);
     });
 
-    it.only("should be able to list all transactions", async () => {
+    it("should be able to list all transactions", async () => {
         const agent = supertest.agent(app.server);
 
         await agent
@@ -33,9 +33,17 @@ describe("Transactions Routes", () => {
                 type: "credit"
             });
 
-        await agent
-            .get("/transactions")
-            .expect(200);
+        const listTransactionResponse =
+            await agent
+                .get("/transactions")
+                .expect(200);
+
+        expect(listTransactionResponse.body.transactions).toEqual([
+            expect.objectContaining({
+                title: "New Transaction",
+                amount: 5000
+            })
+        ]);
     });
 
 });
