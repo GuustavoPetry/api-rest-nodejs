@@ -9,7 +9,6 @@ test("O usuário consegue criar uma nova transação", async () => {
             title: "New Transaction",
             amount: 5000,
             type: "credit"
-        });
-
-    expect(response.statusCode).toEqual(201);
+        })
+        .expect(201);
 });
