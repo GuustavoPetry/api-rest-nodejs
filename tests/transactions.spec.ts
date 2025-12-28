@@ -11,8 +11,9 @@ describe("Transactions Routes", () => {
         await app.close();
     });
 
-    it("should be able to create a new transaction", async () => {
-        await request(app.server)
+    // Roda apenas este teste na execução
+    it.only("should be able to create a new transaction", async () => {
+        const response = await request(app.server)
             .post("/transactions")
             .send({
                 title: "New Transaction",
@@ -20,6 +21,16 @@ describe("Transactions Routes", () => {
                 type: "credit"
             })
             .expect(201);
+
+        console.log(response.headers);
     });
+
+    // Pula esse teste na execução
+    it.skip("should be able to list all transactions", async () => {
+
+    });
+
+    // Marca teste como -> a fazer
+    it.todo("Any test", async () => {});
 });
 
