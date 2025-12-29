@@ -7,6 +7,7 @@
     "dev": "tsx --watch src/server.ts",
     "knex": "tsx ./node_modules/knex/bin/cli.js",
     "lint": "eslint src --ext .ts --fix && prettier --write \"src/**/*.ts\"",
+    "build": "tsup src --out-dir build",
     "test": "vitest"
   },
   "keywords": [],
@@ -21,6 +22,7 @@
     "eslint": "^8.57.1",
     "prettier": "^3.7.4",
     "supertest": "^7.1.4",
+    "tsup": "^8.5.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"

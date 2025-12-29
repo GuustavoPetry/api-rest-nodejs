@@ -1,10 +1,10 @@
 import { it, beforeAll, afterAll, beforeEach, describe, expect } from "vitest";
 import { execSync } from "node:child_process"; // Executa comandos no terminal via código
-import supertest, { SuperAgentTest } from "supertest";
+import supertest from "supertest";
 import { app } from "../src/app";
 
 describe("Transactions Routes", () => {
-    let agent: supertest.Agent;
+    let agent: ReturnType<typeof supertest.agent>;
 
     beforeAll(async () => {
         await app.ready();
